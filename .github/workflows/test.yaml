@@ -1,10 +1,12 @@
-name: Release UI module
+name: Build UI module
 on:
   push:
     branches: [ main ]
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      MODULE_NAME: stripes-reshare
     steps:
     - uses: actions/checkout@v2
     # Setup .npmrc file to publish to npm
@@ -14,8 +16,10 @@ jobs:
         registry-url: 'https://registry.npmjs.org'
     - run: |
         yarn config set @folio:registry https://repository.folio.org/repository/npm-folio/
-        yarn global add @folio/stripes-cli --prefix /usr/local
+        yarn global add @folio/stripes-cli 
     - run: yarn install 
+    - run: mkdir -p artifacts/md
+    - run: stripes mod descriptor --full --strict | jq '.[]' artifacts/md/$MODULE_NAME.json
     #- run: npm publish
     #  env:
     #    NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
