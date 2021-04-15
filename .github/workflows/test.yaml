@@ -19,6 +19,7 @@ jobs:
         yarn global add @folio/stripes-cli 
     - run: yarn install 
     - run: mkdir -p artifacts/md
+    - run: stripes mod descriptor --full --strict 
     - run: stripes mod descriptor --full --strict | jq '.[]' > artifacts/md/$MODULE_NAME.json
     - run: cat artifacts/md/$MODULE_NAME.json
     - run: >
@@ -27,6 +28,6 @@ jobs:
         -d @artifacts/md/$MODULE_NAME.json
         -u registryadmin:${{ secrets.REGISTRY_ADMIN_PASS }}
         https://registry.reshare-dev.indexdata.com/_/proxy/modules
-    - run: npm publish --access public
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPMJS_TOKEN }}
+    #- run: npm publish --access public
+    #  env:
+    #    NODE_AUTH_TOKEN: ${{ secrets.NPMJS_TOKEN }}
