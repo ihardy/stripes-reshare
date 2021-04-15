@@ -16,7 +16,7 @@ jobs:
         registry-url: 'https://registry.npmjs.org'
     - run: |
         yarn config set @folio:registry https://repository.folio.org/repository/npm-folio/
-        yarn global add @folio/stripes-cli 
+        sudo yarn global add @folio/stripes-cli --prefix /usr/local
     - run: yarn install 
     - run: mkdir -p artifacts/md
     - run: stripes mod descriptor --full --strict 
