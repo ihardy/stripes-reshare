@@ -25,7 +25,7 @@ jobs:
         -H "Content-type: application/json"
         -d @artifacts/md/$MODULE_NAME.json
         -u registryadmin:${{ secrets.REGISTRY_ADMIN_PASS }}
-        https://registry.reshare-dev.indexdata.com
-    #- run: npm publish
-    #  env:
-    #    NODE_AUTH_TOKEN: ${{ secrets.NPMJS_TOKEN }}
+        https://registry.reshare-dev.indexdata.com/_/proxy/modules
+    - run: npm publish
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPMJS_TOKEN }}
